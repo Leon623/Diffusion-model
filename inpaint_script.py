@@ -56,13 +56,13 @@ def main():
     )
 
     opt = parser.parse_args()
-    print("tu sam")
+
     if not os.path.exists(opt.output_dir):
         os.makedirs(opt.output_dir)
 
     for _ in range(opt.n_outputs):
         input_image = Image.open(opt.image)
-        print("tu sam")
+
         mask_image = Image.open(opt.mask_file)
 
         result_image = inpaint(image=input_image, mask_image=mask_image, prompt=opt.prompt,

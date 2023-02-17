@@ -23,7 +23,3 @@ def preprocess_data(source_directory, results_directory, resize_size):
         img = preprocess_image(img, resize_size)
         img.save(results_directory + "/" + image)
 
-
-# if __name__ == "__main__":
-#     preprocess_data(source_directory="Paul_outputs/inpaint_outputs/", results_directory="Paul_outputs/result_outputs",
-#                     resize_size=250)
