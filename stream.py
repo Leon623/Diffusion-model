@@ -56,6 +56,15 @@ def main():
         help="Strength of transitioning"
     )
 
+    parser.add_argument(
+
+        "--n_images",
+        type=int,
+        nargs="?",
+        default=1,
+        help="How many of each image"
+    )
+
     opt = parser.parse_args()
     print("Starting...")
     transition_dir = opt.output_dir + "/transition_outputs"
@@ -87,13 +96,15 @@ def main():
         cv2.imwrite(f"{mask_dir}/" + image, mask)
 
         #Inpainting image
-        result_image = inpaint(input_image, mask, opt.prompt, opt.guidance_scale)
-        result_image.save(f"{inpaint_dir}/" + image)
+        for _ in range(opt.n_images):
+            result_image = inpaint(input_image, mask, opt.prompt, opt.guidance_scale)
+            result_image.save(f"{inpaint_dir}/{_}_" + image)
 
-        print(f"Image {image} done.")
+            print(f"Image {image} done.")
 
     #Convert inpaints back to results
     preprocess_data(source_directory=f"{inpaint_dir}/", results_directory=results_dir, resize_size=250)
 
 
 main()
+
